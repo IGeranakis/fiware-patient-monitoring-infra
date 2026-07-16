@@ -1,4 +1,4 @@
-# FIWARE Device Simulator — Remote Patient Monitoring (Thesis)
+# FIWARE Device Simulator — Remote Patient Monitoring
 
 Virtual medical devices for an IoT infrastructure that remotely monitors
 patients' vital signs, built on the [FIWARE](https://www.fiware.org/) platform.
@@ -6,8 +6,8 @@ patients' vital signs, built on the [FIWARE](https://www.fiware.org/) platform.
 This repository contains the
 [FIWARE Device Simulator](https://github.com/telefonicaid/fiware-device-simulator)
 by Telefónica I+D (see `LICENSE`), together with the configuration and helper
-files developed for this thesis. All credit for the simulator itself goes to
-the original authors; the thesis-specific additions are listed below.
+files developed for this project. All credit for the simulator itself goes to
+the original authors; the project-specific additions are listed below.
 
 ## What it does
 
@@ -32,9 +32,9 @@ Simulator → Orion (1026) → Cygnus (5050) → MySQL (hospital.vitals)
                         Doctors' web application (Node.js / React)
 ```
 
-## Thesis-specific files
+## Project files
 
-- `my-simulation.json` — the simulation configuration (FIWARE service
+- `simulation.json` — the simulation configuration (FIWARE service
   `hospital`, service path `/vitals`, devices as described above).
 - `docker-compose.yml` — the supporting infrastructure: Orion Context
   Broker, MongoDB, Cygnus, MySQL. MySQL is exposed on host port **3307**.
@@ -78,14 +78,14 @@ Simulator → Orion (1026) → Cygnus (5050) → MySQL (hospital.vitals)
 One-off run:
 
 ```bash
-node bin/fiwareDeviceSimulatorCLI -c my-simulation.json
+node bin/fiwareDeviceSimulatorCLI -c simulation.json
 ```
 
 Recommended (auto-restarts whenever the configuration file changes, e.g.
 when the web application registers a new patient and regenerates it):
 
 ```bash
-nodemon --watch my-simulation.json --exec "node bin/fiwareDeviceSimulatorCLI -c my-simulation.json"
+nodemon --watch simulation.json --exec "node bin/fiwareDeviceSimulatorCLI -c simulation.json"
 ```
 
 ## Verifying the pipeline
@@ -125,4 +125,4 @@ MySQL) that consumes these measurements is maintained separately.
 The FIWARE Device Simulator is © Telefónica Investigación y Desarrollo and
 is distributed under the license in `LICENSE`. This repository redistributes
 it unchanged, adding only the configuration and documentation files listed
-above for academic (thesis) purposes.
+above.
