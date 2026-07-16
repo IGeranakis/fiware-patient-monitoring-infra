@@ -1,0 +1,15 @@
+{
+  "description": "Persist all patient vital-sign updates to MySQL via Cygnus",
+  "subject": {
+    "entities": [
+      {
+        "idPattern": "Patient.*"
+      }
+    ]
+  },
+  "notification": {
+    "http": {
+      "url": "http://cygnus:5050/notify"
+    }
+  }
+}
