@@ -1,0 +1,67 @@
+{
+  "require": ["csv-parse"],
+  "domain": {
+    "service": "service",
+    "subservice": "/subservice"
+  },
+  "contextBroker": {
+    "protocol": "http",
+    "host": "1.2.3.4",
+    "port": 1026,
+    "ngsiVersion": "1.0"
+  },
+  "authentication": {
+    "provider": "keystone",
+    "protocol": "http",
+    "host": "1.2.3.4",
+    "port": 5001,
+    "user": "user",
+    "password": "password",
+    "retry": {
+      "times": 10,
+      "interval": 5000
+    }
+  },
+  "entities": [
+    {
+      "external": {
+        "retry": {
+          "times": 10,
+          "interval": 1000
+        },
+        "method": "GET",
+        "url": "http://www.aemet.es/es/eltiempo/observacion/ultimosdatos_6156X_datos-horarios.csv?k=and&l=6156X&datos=det&w=0&f=temperatura&x=h24",
+        "headers": {
+          "Cache-Control": "no-cache"
+        },
+        "collector": "var csvParse = require('csv-parse/lib/sync'); var data = external.response.body; var csvDataIndex = data.indexOf('\"Fecha y hora oficial'); var csvData = data.substring(csvDataIndex); var parsedCSVData = csvParse(csvData, {columns: true}); function getDate(dateString) { return new Date(dateString.substring(6,10), dateString.substring(3,5) - 1, dateString.substring(0,2), dateString.substring(11,13), dateString.substring(14));} var dateObserved = getDate(parsedCSVData[0]['Fecha y hora oficial']); module.exports = [[{name: 'dateModified', type: 'DateTime', value: dateObserved}, {name: 'dateObserved', type: 'DateTime', value: dateObserved}, {name: 'temperature', type: 'Number', value: parsedCSVData[0]['Temperatura (�C)']}, {name: 'precipitation', type: 'Number', value: parsedCSVData[0]['Precipitaci�n (mm)']}]];"
+      },
+      "entity_type": "WeatherObserved",
+      "entity_name": "WeatherObserved-001",
+      "schedule": "*/15 * * * * *",
+      "staticAttributes": [
+        {
+          "name": "name",
+          "type": "Text",
+          "value": "Málaga, Centro Meteorológico"
+        },
+        {
+          "name": "location",
+          "type": "geo:json",
+          "value": {
+            "type": "Point",
+            "coordinates": [
+              -4.4816666667,
+              36.7177777778
+            ]
+          }
+        },
+        {
+          "name": "source",
+          "type": "URL",
+          "value": "http%3A%2F%2Fwww.aemet.es%2Fes%2Feltiempo%2Fobservacion%2Fultimosdatos_6156X_datos-horarios.csv%3Fk%3Dand%26l%3D6156X%26datos%3Ddet%26w%3D0%26f%3Dtemperatura%26x%3Dh24"
+        }
+      ]
+    }
+  ]
+}

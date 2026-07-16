@@ -1,0 +1,72 @@
+{
+  "name": "fiware-device-simulator",
+  "description": "Simulator of FIWARE-compatible devices",
+  "version": "1.8.0-next",
+  "licence": "AGPL-3.0",
+  "homepage": "https://github.com/gtorodelvalle/fiware-device-simulator",
+  "author": {
+    "name": "Germán Toro del Valle",
+    "email": "gtorodelvalle@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/gtorodelvalle/fiware-device-simulator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gtorodelvalle/fiware-device-simulator/issues"
+  },
+  "main": "bin/fiwareDeviceSimulatorCLI",
+  "engines": {
+    "node": ">=12"
+  },
+  "scripts": {
+    "clean": "rm -rf package-lock.json && rm -rf node_modules && rm -rf coverage",
+    "test": "mocha --recursive 'test/**/*.js' --reporter spec --timeout 3000 --ui bdd --exit",
+    "test:watch": "npm run test -- -w ./lib",
+    "lint": "jshint lib/ --config .jshintrc && jshint test/ --config test/.jshintrc",
+    "test:coverage": "istanbul cover _mocha -- --recursive 'test/**/*.js' --reporter spec --exit",
+    "watch": "watch 'npm test && npm run lint' ./lib ./test"
+  },
+  "devDependencies": {
+    "dotenv": "~16.0.3",
+    "istanbul": "~0.4.5",
+    "jshint": "~2.9.6",
+    "mocha": "5.2.0",
+    "nock": "~8.0.0",
+    "proxyquire": "~1.7.10",
+    "should": "~10.0.0",
+    "sinon": "~1.17.6",
+    "watch": "~1.0.2"
+  },
+  "keywords": [
+    "fiware",
+    "simulation",
+    "device",
+    "context",
+    "data"
+  ],
+  "dependencies": {
+    "app-root-path": "~1.3.0",
+    "async": "~2.0.1",
+    "check-valid-url": "0.0.2",
+    "commander": "~2.9.0",
+    "dateformat": "~1.0.12",
+    "deasync": "~0.1.8",
+    "eval": "0.1.3",
+    "google-spreadsheet": "~3.0.2",
+    "humanize-duration": "~3.9.1",
+    "linear-interpolator": "~1.0.2",
+    "logops": "2.1.2",
+    "lolex": "~1.5.1",
+    "mqtt": "~1.14.0",
+    "node-schedule": "~1.2.0",
+    "npm-install-package": "~1.1.0",
+    "request": "2.88.0",
+    "time": "github:riyadshauk/node-time#b77fe204c31854a9b1dd9930f189ead813bc9d4c",
+    "turf-along": "~3.0.12",
+    "turf-bearing": "~3.0.12",
+    "turf-line-distance": "~3.0.12",
+    "turf-linestring": "~1.0.2",
+    "turf-point": "~2.0.1"
+  }
+}

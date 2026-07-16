@@ -1,0 +1,16 @@
+{
+  "description": "Notify QuantumLeap of all patient vital-sign updates",
+  "subject": {
+    "entities": [
+      {
+        "idPattern": "Patient.*"
+      }
+    ]
+  },
+  "notification": {
+    "http": {
+      "url": "http://quantumleap:8668/v2/notify"
+    },
+    "metadata": ["dateCreated", "dateModified", "TimeInstant"]
+  }
+}
